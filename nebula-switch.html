@@ -1,0 +1,173 @@
+<!--
+@license
+Copyright (c) 2017 Ars Nebula LLC.
+This code may be used under the terms found in LICENSE.md of this repository.
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-iconset-svg/iron-iconset-svg.html">
+<link rel="import" href="../nebula-focus-behavior/nebula-focus-behavior.html">
+<link rel="import" href="../nebula-style-attributes-behavior/nebula-style-attributes-behavior.html">
+<link rel="import" href="../nebula-checked-behavior/nebula-checked-behavior.html">
+
+<!--
+`<nebula-switch>` is a web component to display a switch control.
+
+## Usage
+
+The following demonstrates common properties and events.
+
+```html
+<nebula-switch
+  checked="{{checked}}"
+  on-change="_onChange">
+</nebula-switch>
+```
+
+You can customize the icon, by specifying the name of an `iron-icon` in the icon registry. It is recommended you use an icon with a solid background.
+
+```html
+<nebula-switch
+  icon="icons:favorite">
+</nebula-switch>
+```
+
+## Style
+
+The recommended approach to styling the element is by using **CSS**.
+
+```css
+:host {
+  --nebula-switch-color: darkred;
+}
+```
+
+The following CSS variables are provided to theme the element.
+
+Custom property | Description | Default
+:--- | :--- | :---
+`--nebula-switch-color` | The theme color for the element. | teal
+`--nebula-switch-size` | The theme size (height and width) of the element. | 1.5rem
+
+For convenience, you can also apply a theme to the element using the following style attributes:
+ 
+- `color`
+- `size`
+
+```html
+<nebula-switch color="teal" size="1.5rem">
+  My Switch
+</nebula-switch>
+```
+
+@demo demo/index.html
+-->
+
+<dom-module id="nebula-switch">
+  <template>
+    <style>
+      :host {
+        --nebula-switch-color: var(--nebula-theme-primary-color, teal);
+        --nebula-switch-size: 1.5rem;
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        height: var(--nebula-switch-size);
+        width: calc(var(--nebula-switch-size) * 2);
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
+      #rail {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        right: 12px;
+        transform: translateY(-50%);
+        height: calc(var(--nebula-switch-size) * 0.2);
+        margin: 0;
+        border: 0;
+        border-radius: 2px;
+        padding: 0;
+        opacity: 0.6;
+        background-color: currentColor;
+        transition: background-color 0.4s linear;
+      }
+      #icon {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0%, -50%);
+        height: var(--nebula-switch-size);
+        width: var(--nebula-switch-size);
+        color: currentColor;
+        transition: transform 0.4s ease;
+      }
+      :host([checked]) #rail {
+        background-color: var(--nebula-switch-color);
+      }
+      :host([checked]) #icon {
+        color: var(--nebula-switch-color);
+        transform: translate(100%, -50%);
+      }
+      :host([focusmode=key]):focus,
+      :host([focusmode=mouse]):hover {
+        box-shadow: 0px 0px 1px 1px var(--nebula-checkbox-color);
+      }
+      :host([disabled]) {
+        pointer-events: none !important;
+        cursor: default !important;   
+        opacity: 0.6 !important;
+      }
+    </style>
+    <iron-iconset-svg size="24" name="nebula-switch">
+      <svg>
+        <defs>
+          <g id="circle"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path></g>
+        </defs>
+      </svg>
+    </iron-iconset-svg>
+    <hr id="rail">
+    <iron-icon id="icon" icon="[[icon]]"></iron-icon>
+  </template>
+  <script>
+    Polymer({
+      /**
+      * Event triggered when the checked value is changed.
+      * @event change
+      */
+      is: 'nebula-switch',
+      behaviors: [
+        Nebula.FocusBehavior,
+        Nebula.StyleAttributesBehavior,
+        Nebula.CheckedBehavior
+      ],
+      hostAttributes: {
+        'role': 'checkbox'
+      },
+      /**
+      * Map of style attributes that can be used to update CSS variables.
+      */
+      _styleAttributes: {
+        'color': '--nebula-switch-color',
+        'size': '--nebula-switch-size'
+      },
+      properties: {
+        /**
+        * The default icon to display when the element is not checked.
+        */
+        icon: {
+          type: String,
+          value: 'nebula-switch:circle'
+        }
+      }
+    })
+  </script>
+</dom-module>

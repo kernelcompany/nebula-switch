@@ -1,0 +1,76 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>nebula-switch</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../nebula-switch.html">
+    <style is="custom-style" include="demo-pages-shared-styles">
+      .light {
+        display: inline-block;
+        background-color: white;
+        color: black;
+        padding: 16px;
+        border: 1px solid black;
+      }
+      .dark {
+        display: inline-block;
+        background-color: black;
+        color: white;
+        padding: 16px;
+        border: 1px solid black;
+      }
+      .light > *, .dark > * {
+        margin-right: 8px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container">
+      <h3>Switch</h3>
+      <demo-snippet>
+        <template is="dom-bind">
+          <div class="light">
+            <nebula-switch></nebula-switch>
+          </div>
+          <div class="dark">
+            <nebula-switch></nebula-switch>
+          </div>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container">
+      <h3>Disabled Switch</h3>
+      <demo-snippet>
+        <template is="dom-bind">
+          <div class="light">
+            <nebula-switch disabled></nebula-switch>
+            <nebula-switch disabled checked></nebula-switch>
+          </div>
+          <div class="dark">
+            <nebula-switch disabled></nebula-switch>
+            <nebula-switch disabled checked></nebula-switch>
+          </div>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container">
+      <h3>Switch Color and Size</h3>
+      <demo-snippet>
+        <template is="dom-bind">
+          <nebula-switch color="olive" size="1.5rem" checked></nebula-switch>
+          <nebula-switch color="darkred" size="2rem" checked></nebula-switch>
+          <nebula-switch color="blue" size="2.5rem" checked></nebula-switch>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>
