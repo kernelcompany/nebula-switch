@@ -47,16 +47,18 @@ The following CSS variables are provided to theme the element.
 
 Custom property | Description | Default
 :--- | :--- | :---
-`--nebula-switch-color` | The theme color for the element. | teal
-`--nebula-switch-size` | The theme size (height and width) of the element. | 1.5rem
+`--nebula-switch-color` | The color for the element when unchecked. | currentColor
+`--nebula-switch-active-color` | The color for the element when checked. | teal
+`--nebula-switch-size` | The size of the element. | 1.5rem
 
 For convenience, you can also apply a theme to the element using the following style attributes:
  
 - `color`
+- 'active-color'
 - `size`
 
 ```html
-<nebula-switch color="teal" size="1.5rem">
+<nebula-switch color="currentColor" active-color="teal" size="1.5rem">
   My Switch
 </nebula-switch>
 ```
@@ -68,7 +70,8 @@ For convenience, you can also apply a theme to the element using the following s
   <template>
     <style>
       :host {
-        --nebula-switch-color: var(--nebula-theme-primary-color, teal);
+        --nebula-switch-color: currentColor;
+        --nebula-switch-active-color: var(--nebula-ui-primary-color, teal);
         --nebula-switch-size: 1.5rem;
         position: relative;
         display: inline-block;
@@ -97,7 +100,7 @@ For convenience, you can also apply a theme to the element using the following s
         border-radius: 2px;
         padding: 0;
         opacity: 0.6;
-        background-color: currentColor;
+        background-color: var(--nebula-switch-color);
         transition: background-color 0.4s linear;
       }
       #icon {
@@ -107,19 +110,23 @@ For convenience, you can also apply a theme to the element using the following s
         transform: translate(0%, -50%);
         height: var(--nebula-switch-size);
         width: var(--nebula-switch-size);
-        color: currentColor;
+        color: var(--nebula-switch-color);
         transition: transform 0.4s ease;
       }
       :host([checked]) #rail {
-        background-color: var(--nebula-switch-color);
+        background-color: var(--nebula-switch-active-color);
       }
       :host([checked]) #icon {
-        color: var(--nebula-switch-color);
+        color: var(--nebula-switch-active-color);
         transform: translate(100%, -50%);
       }
       :host([focusmode=key]):focus,
       :host([focusmode=mouse]):hover {
-        box-shadow: 0px 0px 1px 1px var(--nebula-checkbox-color);
+        box-shadow: 0px 0px 1px 1px var(--nebula-switch-color);
+      }
+      :host([checked][focusmode=key]):focus,
+      :host([checked][focusmode=mouse]):hover {
+        box-shadow: 0px 0px 1px 1px var(--nebula-switch-active-color);
       }
       :host([disabled]) {
         pointer-events: none !important;
@@ -157,6 +164,7 @@ For convenience, you can also apply a theme to the element using the following s
       */
       _styleAttributes: {
         'color': '--nebula-switch-color',
+        'active-color': '--nebula-switch-active-color',
         'size': '--nebula-switch-size'
       },
       properties: {
@@ -166,6 +174,17 @@ For convenience, you can also apply a theme to the element using the following s
         icon: {
           type: String,
           value: 'nebula-switch:circle'
+        }
+      },
+      listeners: {
+        'track': '_onTrack'  
+      },
+      _onTrack: function(e) {
+        e.preventDefault()
+        if (e.detail.dx > 0) {
+          this.set('checked', true)
+        } else if (e.detail.dx < 0) {
+          this.set('checked', false)
         }
       }
     })
