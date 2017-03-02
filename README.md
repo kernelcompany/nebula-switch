@@ -1,21 +1,21 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/arsnebula/nebula-switch)
+[![Gitter chat](https://badges.gitter.im/org.png)](https://gitter.im/arsnebula/webcomponents)
 
-[![Build Status](https://saucelabs.com/browser-matrix/arsnebula.svg)](https://saucelabs.com/beta/builds/7bb9e6ef718f47c499009ef811b64ae3)
+[![Build Status](https://saucelabs.com/browser-matrix/arsnebula.svg)](https://saucelabs.com/beta/builds/ff0200c6ee21427c982e54d51e506077)
 
 # \<nebula-switch\>
 
 A web component to display a switch control.
 
-* Simple flat switch control
 * Customizable icon
-* Easily customized using CSS, custom variables and mixins
+* Easily customized using CSS variables and mixins
 * Looks great on a light or dark background
 * Consistent visual presentation across all browsers
 * Supports [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox) authoring practices for **a11y**
 
 ## Installation
 
-```
+```sh
 $ bower install -S arsnebula/nebula-switch
 ```
 
@@ -41,7 +41,7 @@ Style the element.
 ```css
 nebula-switch {
   --nebula-switch-color: currentColor;
-  --nebula-switch-active-color: darkred;
+  --nebula-switch-checked-color: darkred;
   --nebula-switch-size: 1.5rem;
 }
 ```

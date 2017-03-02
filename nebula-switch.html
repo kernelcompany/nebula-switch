@@ -8,7 +8,6 @@ This code may be used under the terms found in LICENSE.md of this repository.
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-iconset-svg/iron-iconset-svg.html">
 <link rel="import" href="../nebula-focus-behavior/nebula-focus-behavior.html">
-<link rel="import" href="../nebula-style-attributes-behavior/nebula-style-attributes-behavior.html">
 <link rel="import" href="../nebula-checked-behavior/nebula-checked-behavior.html">
 
 <!--
@@ -35,33 +34,34 @@ You can customize the icon, by specifying the name of an `iron-icon` in the icon
 
 ## Style
 
-The recommended approach to styling the element is by using **CSS**.
+Theme variables are used to style key design goals for the element and affect multiple styles (border, background color) across multiple states.
 
-```css
-:host {
-  --nebula-switch-color: darkred;
-}
-```
+Custom property | Description
+:--- | :---
+`--nebula-switch-color` | The theme color of the element.
+`--nebula-switch-checked-color` | The theme color of the element when checked.
+`--nebula-switch-size` | The height and width of the element.
 
-The following CSS variables are provided to theme the element.
+For more granular control, the following mixins can be used to style each state of the element:
+
+Custom property | Description
+:--- | :---
+`--nebula-switch` | Mixin applied to base element.
+`--nebula-switch-rail` | Mixin applied to element rail child element.
+`--nebula-switch-icon` | Mixin applied to element icon child element.
+`--nebula-switch-checked` | Mixin applied to element when checked.
+`--nebula-switch-focused` | Mixin applied to element when focused.
+`--nebula-switch-disabled` | Mixin applied to element when disabled.
+
+The element also inherits default values from the following global theme styles. If a global theme variable has not been set, it will use the local default.
 
 Custom property | Description | Default
 :--- | :--- | :---
-`--nebula-switch-color` | The color for the element when unchecked. | currentColor
-`--nebula-switch-active-color` | The color for the element when checked. | teal
-`--nebula-switch-size` | The size of the element. | 1.5rem
-
-For convenience, you can also apply a theme to the element using the following style attributes:
- 
-- `color`
-- 'active-color'
-- `size`
-
-```html
-<nebula-switch color="currentColor" active-color="teal" size="1.5rem">
-  My Switch
-</nebula-switch>
-```
+`--nebula-ui-primary-color | The theme color of the element when checked. | teal
+`--nebula-ui-margin` | The margin of the element. | 4px
+`--nebula-ui-border-width` | The border width of the element. | 0px
+`--nebula-ui-border-radius` | The border-radius of the element. | 2px
+`--nebula-ui-disabled-opacity` | Opacity of the element when disabled. | 0.6
 
 @demo demo/index.html
 -->
@@ -70,18 +70,18 @@ For convenience, you can also apply a theme to the element using the following s
   <template>
     <style>
       :host {
-        --nebula-switch-color: currentColor;
-        --nebula-switch-active-color: var(--nebula-ui-primary-color, teal);
-        --nebula-switch-size: 1.5rem;
+        --nebula-switch-default-checked-color: var(--nebula-ui-primary-color, teal);
         position: relative;
         display: inline-block;
         cursor: pointer;
-        margin: 0;
+        margin: var(--nebula-ui-margin, 4px);
         padding: 0;
-        border: 0;
+        border: var(--nebula-ui-border-width, 0px) solid transparent;
+        border-radius: var(--nebula-ui-border-radius, 2px);
+        height: var(--nebula-switch-size, 1.5rem);
+        width: calc(var(--nebula-switch-size, 1.5rem) * 2);
+        color: var(--nebula-switch-color, inherit);
         outline: 0;
-        height: var(--nebula-switch-size);
-        width: calc(var(--nebula-switch-size) * 2);
         -moz-user-select: none;
         -ms-user-select: none;
         -webkit-user-select: none;
@@ -94,44 +94,43 @@ For convenience, you can also apply a theme to the element using the following s
         left: 12px;
         right: 12px;
         transform: translateY(-50%);
-        height: calc(var(--nebula-switch-size) * 0.2);
+        height: calc(var(--nebula-switch-size, 1.5rem) * 0.2);
         margin: 0;
         border: 0;
         border-radius: 2px;
         padding: 0;
         opacity: 0.6;
-        background-color: var(--nebula-switch-color);
-        transition: background-color 0.4s linear;
+        background-color: currentColor;
+        transition: background-color 0.25s linear;
+        @apply --nebula-switch-rail;
       }
       #icon {
         position: absolute;
-        top: 50%;
+        width: var(--nebula-switch-size, 1.5rem);
+        height: var(--nebula-switch-size, 1.5rem);
         left: 0;
-        transform: translate(0%, -50%);
-        height: var(--nebula-switch-size);
-        width: var(--nebula-switch-size);
-        color: var(--nebula-switch-color);
-        transition: transform 0.4s ease;
+        transform: translateX(0%);
+        transition: transform 0.25s ease;
+        @apply --nebula-switch-icon;
       }
       :host([checked]) #rail {
-        background-color: var(--nebula-switch-active-color);
+        background-color: currentColor;
       }
       :host([checked]) #icon {
-        color: var(--nebula-switch-active-color);
-        transform: translate(100%, -50%);
+        transform: translateX(100%);
       }
-      :host([focusmode=key]):focus,
-      :host([focusmode=mouse]):hover {
-        box-shadow: 0px 0px 1px 1px var(--nebula-switch-color);
+      :host([checked]) {
+        color: var(--nebula-switch-checked-color, var(--nebula-switch-default-checked-color));
+        @apply --nebula-switch-checked;
       }
-      :host([checked][focusmode=key]):focus,
-      :host([checked][focusmode=mouse]):hover {
-        box-shadow: 0px 0px 1px 1px var(--nebula-switch-active-color);
+      :host([focused]) {
+        box-shadow: var(--nebula-ui-focused-box-shadow, 0px 0px 1px 1px currentColor);
+        @apply --nebula-switch-focused;
       }
       :host([disabled]) {
-        pointer-events: none !important;
-        cursor: default !important;   
-        opacity: 0.6 !important;
+        pointer-events: none;
+        cursor: default;   
+        opacity: var(--nebula-ui-disabled-opacity, 0.6);
       }
     </style>
     <iron-iconset-svg size="24" name="nebula-switch">
@@ -153,19 +152,10 @@ For convenience, you can also apply a theme to the element using the following s
       is: 'nebula-switch',
       behaviors: [
         Nebula.FocusBehavior,
-        Nebula.StyleAttributesBehavior,
         Nebula.CheckedBehavior
       ],
       hostAttributes: {
         'role': 'checkbox'
-      },
-      /**
-      * Map of style attributes that can be used to update CSS variables.
-      */
-      _styleAttributes: {
-        'color': '--nebula-switch-color',
-        'active-color': '--nebula-switch-active-color',
-        'size': '--nebula-switch-size'
       },
       properties: {
         /**

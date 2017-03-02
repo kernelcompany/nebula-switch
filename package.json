@@ -1,7 +1,7 @@
 {
   "name": "nebula-switch",
-  "version": "1.0.1",
-  "description": "A web component to display a switch control.",
+  "version": "1.1.0",
+  "description": "A configurable switch control.",
   "license": "ISC",
   "author": "Chris Beckett <chrisb@arsnebula.com>",
   "homepage": "https://github.com/arsnebula/nebula-switch",
@@ -14,7 +14,9 @@
     "polymer",
     "webcomponents",
     "web-components",
-    "element",
+    "customelements",
+    "custom-elements",
+    "checkbox-control",
     "checkbox",
     "toggle",
     "switch"

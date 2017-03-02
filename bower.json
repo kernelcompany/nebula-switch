@@ -1,6 +1,6 @@
 {
   "name": "nebula-switch",
-  "description": "A web component to display a switch control.",
+  "description": "A configurable switch control.",
   "license": "ISC",
   "authors": [
     "Chris Beckett <chrisb@arsnebula.com>"
@@ -16,7 +16,9 @@
     "polymer",
     "webcomponents",
     "web-components",
-    "element",
+    "customelements",
+    "custom-elements",
+    "checkbox-control",
     "checkbox",
     "toggle",
     "switch"
@@ -26,8 +28,7 @@
     "polymer": "Polymer/polymer#^1.7.1",
     "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.1.0",
     "iron-icon": "PolymerElements/iron-icon#^1.0.12",
-    "nebula-focus-behavior": "arsnebula/nebula-focus-behavior#^1.1.5",
-    "nebula-style-attributes-behavior": "arsnebula/nebula-style-attributes-behavior#^1.1.1",
+    "nebula-focus-behavior": "arsnebula/nebula-focus-behavior#^1.2.0",
     "nebula-checked-behavior": "arsnebula/nebula-checked-behavior#^1.0.3"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
     "web-component-tester": "Polymer/web-component-tester#^5.0.0",
-    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.4.0"
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.4.0",
+    "iron-label": "PolymerElements/iron-label#^1.0.2"
   }
 }

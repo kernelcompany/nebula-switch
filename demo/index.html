@@ -8,26 +8,39 @@
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+    <link rel="import" href="../../iron-label/iron-label.html">
     <link rel="import" href="../nebula-switch.html">
-    <style is="custom-style" include="demo-pages-shared-styles">
-      .light {
-        display: inline-block;
-        background-color: white;
-        color: black;
-        padding: 16px;
-        border: 1px solid black;
-      }
-      .dark {
-        display: inline-block;
-        background-color: black;
-        color: white;
-        padding: 16px;
-        border: 1px solid black;
-      }
-      .light > *, .dark > * {
-        margin-right: 8px;
-      }
-    </style>
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles iron-flex iron-flex-alignment">
+        .light {
+          display: inline-block;
+          background-color: white;
+          color: black;
+          padding: 16px;
+          border: 1px solid black;
+        }
+        .dark {
+          display: inline-block;
+          background-color: black;
+          color: white;
+          padding: 16px;
+          border: 1px solid black;
+        }
+        .theme1 {
+          --nebula-switch-checked-color: darkred;
+          --nebula-switch-size: 1.5rem;
+        }
+        .theme2 {
+          --nebula-switch-checked-color: olive;
+          --nebula-switch-size: 2.0rem;
+        }
+        .theme3 {
+          --nebula-switch-checked-color: darkblue;
+          --nebula-switch-size: 2.5rem;
+        }
+      </style>
+    </custom-style>
   </head>
   <body>
 
@@ -62,12 +75,24 @@
     </div>
 
     <div class="vertical-section-container">
-      <h3>Switch Color and Size</h3>
+      <h3>Switch with a Label</h3>
       <demo-snippet>
         <template is="dom-bind">
-          <nebula-switch active-color="olive" size="1.5rem" checked></nebula-switch>
-          <nebula-switch active-color="darkred" size="2rem" checked></nebula-switch>
-          <nebula-switch active-color="blue" size="2.5rem" checked></nebula-switch>
+          <iron-label class="layout inline horizontal center">
+            Do you love a good Switch?
+            <nebula-switch></nebula-switch>
+          </iron-label>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container">
+      <h3>Switch Styles</h3>
+      <demo-snippet>
+        <template is="dom-bind">
+          <nebula-switch class="theme1" checked></nebula-switch>
+          <nebula-switch class="theme2" checked></nebula-switch>
+          <nebula-switch class="theme3" checked></nebula-switch>
         </template>
       </demo-snippet>
     </div>

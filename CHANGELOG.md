@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.1.0](https://github.com/arsnebula/nebula-switch/releases/tag/v1.1.0) (2017-03-02)
+
+- Removed style attributes behavior. **BREAKING**
+- Removed caption support. **BREAKING**
+- Added global style defaults.
+- Modified styles to support updated focus behavior attributes (focused).
+
 ## [v1.0.1](https://github.com/arsnebula/nebula-switch/releases/tag/v1.0.1) (2017-02-23)
 
 - Added gesture support.
