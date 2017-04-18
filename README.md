@@ -1,14 +1,15 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/arsnebula/nebula-switch)
-[![Gitter chat](https://badges.gitter.im/org.png)](https://gitter.im/arsnebula/webcomponents)
-
-[![Build Status](https://saucelabs.com/browser-matrix/arsnebula.svg)](https://saucelabs.com/beta/builds/ff0200c6ee21427c982e54d51e506077)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-green.svg)](https://www.webcomponents.org/element/arsnebula/nebula-switch)
+[![Polymer Version](https://img.shields.io/badge/polymer-v2-blue.svg)](https://www.polymer-project.org)
+[![Sauce Labs Build Status](https://img.shields.io/badge/saucelabs-passing-red.svg)](https://saucelabs.com/beta/builds/caa1a0178e394938b0236274744f1952)
+[![Gitter Chat](https://badges.gitter.im/org.png)](https://gitter.im/arsnebula/webcomponents)
+[![Become a Patreon](https://img.shields.io/badge/patreon-support_us-orange.svg)](https://www.patreon.com/arsnebula)
 
 # \<nebula-switch\>
 
-A web component to display a switch control.
+A customizable switch control.
 
 * Customizable icon
-* Easily customized using CSS variables and mixins
+* Easily customized using CSS properties and variables
 * Looks great on a light or dark background
 * Consistent visual presentation across all browsers
 * Supports [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox) authoring practices for **a11y**
@@ -19,9 +20,9 @@ A web component to display a switch control.
 $ bower install -S arsnebula/nebula-switch
 ```
 
-## Usage
+## Getting Started
 
-Import the element:
+Import the element.
 
 ```html
 <link rel="import" href="/bower_components/nebula-switch/nebula-switch.html"> 
@@ -32,7 +33,7 @@ Declare the element.
 ```html
 <nebula-switch
   checked="{{checked}}"
-  on-change="_onChange">
+  on-checked-changed="_onCheckedChanged">
 </nebula-switch>
 ```
 
@@ -46,9 +47,19 @@ nebula-switch {
 }
 ```
 
-*For more information on element properties and methods see the element API documentation.*
+*For more information, see the API Reference documentation.*
 
 ## Contributing
+
+We welcome and appreciate feedback from the community. Here are a few ways that you can show your appreciation for this package:
+
+* Give us a **Star on GitHub** from either [webcomponents.org](https://www.webcomponents.org/element/arsnebula/nebula-element-mixin) or directly on [GitHub](https://github.com/arsnebula/nebula-element-mixin).
+
+* Submit a feature request, or a defect report on the [Issues List](https://www.webcomponents.org/element/arsnebula/nebula-element-mixin/issues).
+
+* Become a [Patreon](https://www.patreon.com/arsnebula). It takes a lot of time and effort to develop, document, test and support the elements in our [Nebula Essentials](https://www.webcomponents.org/collection/arsnebula/nebula-essentials) collection. Your financial contribution will help ensure that our entire collection continues to grow and improve.
+
+If you are a developer, and are interested in making a code contribution, consider opening an issue first to describe the change, and discuss with the core repository maintainers. Once you are ready, prepare a pull request:
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`

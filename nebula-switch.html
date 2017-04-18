@@ -1,76 +1,14 @@
-<!--
-@license
-Copyright (c) 2017 Ars Nebula LLC.
-This code may be used under the terms found in LICENSE.md of this repository.
--->
-
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../iron-iconset-svg/iron-iconset-svg.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../nebula-element-mixin/nebula-element-mixin.html">
 <link rel="import" href="../nebula-focus-behavior/nebula-focus-behavior.html">
 <link rel="import" href="../nebula-checked-behavior/nebula-checked-behavior.html">
-
-<!--
-`<nebula-switch>` is a web component to display a switch control.
-
-## Usage
-
-The following demonstrates common properties and events.
-
-```html
-<nebula-switch
-  checked="{{checked}}"
-  on-change="_onChange">
-</nebula-switch>
-```
-
-You can customize the icon, by specifying the name of an `iron-icon` in the icon registry. It is recommended you use an icon with a solid background.
-
-```html
-<nebula-switch
-  icon="icons:favorite">
-</nebula-switch>
-```
-
-## Style
-
-Theme variables are used to style key design goals for the element and affect multiple styles (border, background color) across multiple states.
-
-Custom property | Description
-:--- | :---
-`--nebula-switch-color` | The theme color of the element.
-`--nebula-switch-checked-color` | The theme color of the element when checked.
-`--nebula-switch-size` | The height and width of the element.
-
-For more granular control, the following mixins can be used to style each state of the element:
-
-Custom property | Description
-:--- | :---
-`--nebula-switch` | Mixin applied to base element.
-`--nebula-switch-rail` | Mixin applied to element rail child element.
-`--nebula-switch-icon` | Mixin applied to element icon child element.
-`--nebula-switch-checked` | Mixin applied to element when checked.
-`--nebula-switch-focused` | Mixin applied to element when focused.
-`--nebula-switch-disabled` | Mixin applied to element when disabled.
-
-The element also inherits default values from the following global theme styles. If a global theme variable has not been set, it will use the local default.
-
-Custom property | Description | Default
-:--- | :--- | :---
-`--nebula-ui-primary-color | The theme color of the element when checked. | teal
-`--nebula-ui-margin` | The margin of the element. | 4px
-`--nebula-ui-border-width` | The border width of the element. | 0px
-`--nebula-ui-border-radius` | The border-radius of the element. | 2px
-`--nebula-ui-disabled-opacity` | Opacity of the element when disabled. | 0.6
-
-@demo demo/index.html
--->
+<link rel="import" href="../nebula-icons/nebula-icons.html">
+<link rel="import" href="nebula-switch-icons.html">
 
 <dom-module id="nebula-switch">
   <template>
     <style>
       :host {
-        --nebula-switch-default-checked-color: var(--nebula-ui-primary-color, teal);
         position: relative;
         display: inline-block;
         cursor: pointer;
@@ -80,7 +18,7 @@ Custom property | Description | Default
         border-radius: var(--nebula-ui-border-radius, 2px);
         height: var(--nebula-switch-size, 1.5rem);
         width: calc(var(--nebula-switch-size, 1.5rem) * 2);
-        color: var(--nebula-switch-color, inherit);
+        color: var(--nebula-switch-color, dimgrey);
         outline: 0;
         -moz-user-select: none;
         -ms-user-select: none;
@@ -102,16 +40,18 @@ Custom property | Description | Default
         opacity: 0.6;
         background-color: currentColor;
         transition: background-color 0.25s linear;
-        @apply --nebula-switch-rail;
       }
       #icon {
         position: absolute;
         width: var(--nebula-switch-size, 1.5rem);
         height: var(--nebula-switch-size, 1.5rem);
+        margin: 0;
         left: 0;
         transform: translateX(0%);
         transition: transform 0.25s ease;
-        @apply --nebula-switch-icon;
+      }
+      :host([checked]) {
+        color: var(--nebula-switch-checked-color, inherit);
       }
       :host([checked]) #rail {
         background-color: currentColor;
@@ -119,13 +59,11 @@ Custom property | Description | Default
       :host([checked]) #icon {
         transform: translateX(100%);
       }
-      :host([checked]) {
-        color: var(--nebula-switch-checked-color, var(--nebula-switch-default-checked-color));
-        @apply --nebula-switch-checked;
-      }
       :host([focused]) {
         box-shadow: var(--nebula-ui-focused-box-shadow, 0px 0px 1px 1px currentColor);
-        @apply --nebula-switch-focused;
+      }
+      :host([hidden]) {
+        display: none;
       }
       :host([disabled]) {
         pointer-events: none;
@@ -133,43 +71,59 @@ Custom property | Description | Default
         opacity: var(--nebula-ui-disabled-opacity, 0.6);
       }
     </style>
-    <iron-iconset-svg size="24" name="nebula-switch">
-      <svg>
-        <defs>
-          <g id="circle"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path></g>
-        </defs>
-      </svg>
-    </iron-iconset-svg>
     <hr id="rail">
-    <iron-icon id="icon" icon="[[icon]]"></iron-icon>
+    <nebula-icon id="icon" icon="[[icon]]"></nebula-icon>
   </template>
   <script>
-    Polymer({
+  (function() {
+    'use strict'
+
+    // symbols for private members
+    const onTrack = Symbol()
+
+    // symbols for protected members
+    const listen = Symbol.for('Nebula.ElementMixin.listen')
+
+    /**
+     * A configurable switch control.
+     */
+    class NebulaSwitch extends Nebula.CheckedBehavior(Nebula.FocusBehavior(Nebula.ElementMixin(Polymer.Element))) {
+
       /**
-      * Event triggered when the checked value is changed.
-      * @event change
-      */
-      is: 'nebula-switch',
-      behaviors: [
-        Nebula.FocusBehavior,
-        Nebula.CheckedBehavior
-      ],
-      hostAttributes: {
-        'role': 'checkbox'
-      },
-      properties: {
-        /**
-        * The default icon to display when the element is not checked.
-        */
-        icon: {
-          type: String,
-          value: 'nebula-switch:circle'
+       * Gets the custom element name.
+       * @type {string}
+       */
+      static get is() { return 'nebula-switch' }
+
+      /**
+       * Gets the property definitions for data binding.
+       * @type {Object}
+       * @property {string} icon - The key of the icon resource to render.
+       */
+      static get properties() {
+        return {
+          icon: {
+            type: String,
+            value: 'nebula-switch:circle'
+          }
         }
-      },
-      listeners: {
-        'track': '_onTrack'  
-      },
-      _onTrack: function(e) {
+      }
+
+      /**
+       * Lifecycle callback invoked when element has been initialized.
+       * @public
+       */
+      ready() {
+        super.ready();
+        this.setAttribute('role', 'checkbox')
+        this[listen](this, 'track', this[onTrack])
+      }
+
+      /**
+       * Event handler triggered on a touch swipe gesture.
+       * @private
+       */
+      [onTrack](e) {
         e.preventDefault()
         if (e.detail.dx > 0) {
           this.set('checked', true)
@@ -177,6 +131,10 @@ Custom property | Description | Default
           this.set('checked', false)
         }
       }
-    })
+
+    }
+
+    customElements.define(NebulaSwitch.is, NebulaSwitch)
+  }())
   </script>
 </dom-module>

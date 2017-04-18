@@ -1,35 +1,20 @@
 {
   "name": "nebula-switch",
-  "version": "1.1.0",
-  "description": "A configurable switch control.",
+  "version": "2.0.0",
+  "description": "A customizable switch control.",
   "license": "ISC",
+  "private": true,
   "author": "Chris Beckett <chrisb@arsnebula.com>",
   "homepage": "https://github.com/arsnebula/nebula-switch",
-  "bugs": {
-    "url": "https://github.com/arsnebula/nebula-switch/issues",
-    "email": "support@arsnebula.com"
-  },
   "repository": "arsnebula/nebula-switch",
-  "keywords": [
-    "polymer",
-    "webcomponents",
-    "web-components",
-    "customelements",
-    "custom-elements",
-    "checkbox-control",
-    "checkbox",
-    "toggle",
-    "switch"
-  ],
   "scripts": {
     "test": "wct --plugin=local",
     "test:debug": "wct --plugin=local --persistent=true",
-    "test:sauce": "wct --plugin=sauce --sauce-username=arsnebula",
+    "test:sauce": "wct --plugin=sauce",
     "start": "browser-sync start -c bsconfig.js"
   },
   "devDependencies": {
-    "browser-sync": "^2.18.6",
-    "minimist": "^1.2.0",
-    "web-component-tester": "^5.0.0"
+    "browser-sync": "latest",
+    "web-component-tester": "^6.0.0 || 6.0.0-prerelease.5"
   }
 }

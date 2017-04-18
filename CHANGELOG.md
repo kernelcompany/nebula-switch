@@ -1,5 +1,10 @@
 # Change Log
 
+## [v2.0.0](https://github.com/arsnebula/nebula-switch/releases/tag/v2.0.0) (2017-04-18)
+
+- Upgraded to Polymer v2 class-style element.
+- Switched iron-icons to nebula-icons.
+
 ## [v1.1.0](https://github.com/arsnebula/nebula-switch/releases/tag/v1.1.0) (2017-03-02)
 
 - Removed style attributes behavior. **BREAKING**

@@ -1,13 +1,12 @@
 <!doctype html>
-
 <html>
   <head>
     <title>nebula-switch</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
-    <link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
+    <link rel="import" href="../../nebula-test/nebula-test.html">
     <link rel="import" href="../nebula-switch.html">
   </head>
   <body>
@@ -18,13 +17,18 @@
     </test-fixture>
 
     <script>
+    (function() {
+      const key = Symbol.for('Nebula.Test.key')
+      const click = Symbol.for('Nebula.Test.click')
+      const tap = Symbol.for('Nebula.Test.tap')
+
       suite('basic', function() {
-        var el
+        let el
         setup(function() {
           el = fixture('basic')
         })
-        test('element is created', function() {
-          assert.equal(el.is, 'nebula-switch')
+        test('element is upgraded', function() {
+          assert.equal(el.constructor.is, 'nebula-switch')
         })
         test('has checked attribute', function() {
           el.checked = true
@@ -37,27 +41,35 @@
           assert.equal(el.getAttribute('aria-checked'), "true")
         })
         test('checked on space key', function(done) {
-          el.addEventListener('change', function(e) {
+          el.addEventListener('checked-changed', function(e) {
             assert.isTrue(e.target.checked)            
             done()  
           })
-          MockInteractions.pressSpace(el)
+          el[key](' ')
         })
         test('checked on enter key', function(done) {
-          el.addEventListener('change', function(e) {
+          el.addEventListener('checked-changed', function(e) {
             assert.isTrue(e.target.checked)            
             done()  
           })
-          MockInteractions.pressEnter(el)
+          el[key]('Enter')
         })
         test('checked on tap', function(done) {
-          el.addEventListener('change', function(e) {
+          el.addEventListener('checked-changed', function(e) {
             assert.isTrue(e.target.checked)            
             done()  
           })
-          MockInteractions.tap(el)
+          el[click]()
+        })
+        test('checked on tap', function(done) {
+          el.addEventListener('checked-changed', function(e) {
+            assert.isTrue(e.target.checked)            
+            done()  
+          })
+          el[tap]()
         })
       })
+    }())
     </script>
   </body>
 </html>
