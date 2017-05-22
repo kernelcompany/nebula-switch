@@ -1,5 +1,9 @@
 # Change Log
 
+## [v2.0.1](https://github.com/arsnebula/nebula-switch/releases/tag/v2.0.1) (2017-05-22)
+
+- Removed manual documentation; upgraded inline comments for API documentation generation.
+
 ## [v2.0.0](https://github.com/arsnebula/nebula-switch/releases/tag/v2.0.0) (2017-04-18)
 
 - Upgraded to Polymer v2 class-style element.

@@ -1,6 +1,6 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-green.svg)](https://www.webcomponents.org/element/arsnebula/nebula-switch)
 [![Polymer Version](https://img.shields.io/badge/polymer-v2-blue.svg)](https://www.polymer-project.org)
-[![Sauce Labs Build Status](https://img.shields.io/badge/saucelabs-passing-red.svg)](https://saucelabs.com/beta/builds/caa1a0178e394938b0236274744f1952)
+[![Sauce Labs Build Status](https://img.shields.io/badge/saucelabs-passing-red.svg)](https://saucelabs.com/beta/builds/7ad7d68f3cb44944951509e8812d6d5e)
 [![Gitter Chat](https://badges.gitter.im/org.png)](https://gitter.im/arsnebula/webcomponents)
 [![Become a Patreon](https://img.shields.io/badge/patreon-support_us-orange.svg)](https://www.patreon.com/arsnebula)
 
@@ -10,8 +10,6 @@ A customizable switch control.
 
 * Customizable icon
 * Easily customized using CSS properties and variables
-* Looks great on a light or dark background
-* Consistent visual presentation across all browsers
 * Supports [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox) authoring practices for **a11y**
 
 ## Installation
@@ -41,7 +39,7 @@ Style the element.
 
 ```css
 nebula-switch {
-  --nebula-switch-color: currentColor;
+  --nebula-switch-color: teal;
   --nebula-switch-checked-color: darkred;
   --nebula-switch-size: 1.5rem;
 }

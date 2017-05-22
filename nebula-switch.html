@@ -5,6 +5,54 @@
 <link rel="import" href="../nebula-icons/nebula-icons.html">
 <link rel="import" href="nebula-switch-icons.html">
 
+<!--
+`<nebula-switch>` is a custom element to display a configurable switch control.
+
+## Import
+
+```html
+<link rel="import" href="/bower_components/nebula-switch/nebula-switch.html"> 
+```
+
+## Usage
+
+Add the element. The following demonstrates common properties and event receivers.
+
+```html
+<nebula-switch
+  checked="{{checked}}"
+  on-checked-changed="_onCheckedChanged">
+</nebula-switch>
+```
+
+To customize the icons, specify an icon key value for the `icon` or `checkedIcon` properties. The icon key, formatted as `iconset:id`, should reference a shared icon resource stored in a `nebula-iconset` element (see [nebula-icons](https://www.webcomponents.org/element/arsnebula/nebula-icons)).
+
+```html
+<nebula-switch
+  icon="icons:favorite">
+</nebula-switch>
+```
+
+## Styling
+
+Style the element using standard CSS properties or the following variables:
+
+Custom property | Description | Default
+:--- | :--- | :--
+`--nebula-switch-color` | The color of the element. | dimgrey
+`--nebula-switch-checked-color` | The color of the element when checked. | inherit
+`--nebula-switch-size` | The height and width of the element. | 1.5rem
+
+The element also inherits default values from the following global theme styles. If a global theme variable has not been set, it will use the local default.
+
+Custom property | Description | Default
+:--- | :--- | :---
+`--nebula-ui-margin` | The margin of the element. | 4px
+`--nebula-ui-border-width` | The border width of the element. | 0px
+`--nebula-ui-border-radius` | The border-radius of the element. | 2px
+`--nebula-ui-disabled-opacity` | Opacity of the element when disabled. | 0.6  
+
+-->
 <dom-module id="nebula-switch">
   <template>
     <style>
@@ -28,6 +76,7 @@
       }
       #rail {
         position: absolute;
+        pointer-events: none;
         top: 50%;
         left: 12px;
         right: 12px;
@@ -43,6 +92,7 @@
       }
       #icon {
         position: absolute;
+        pointer-events: none;
         width: var(--nebula-switch-size, 1.5rem);
         height: var(--nebula-switch-size, 1.5rem);
         margin: 0;
@@ -60,7 +110,7 @@
         transform: translateX(100%);
       }
       :host([focused]) {
-        box-shadow: var(--nebula-ui-focused-box-shadow, 0px 0px 1px 1px currentColor);
+        box-shadow: 0px 0px 1px 1px currentColor;
       }
       :host([hidden]) {
         display: none;
@@ -78,20 +128,16 @@
   (function() {
     'use strict'
 
-    // symbols for private members
+    // symbols for private and protected members
     const onTrack = Symbol()
-
-    // symbols for protected members
     const listen = Symbol.for('Nebula.ElementMixin.listen')
 
-    /**
-     * A configurable switch control.
-     */
     class NebulaSwitch extends Nebula.CheckedBehavior(Nebula.FocusBehavior(Nebula.ElementMixin(Polymer.Element))) {
 
       /**
        * Gets the custom element name.
-       * @type {string}
+       * @protected
+       * @ignore
        */
       static get is() { return 'nebula-switch' }
 
@@ -102,6 +148,9 @@
        */
       static get properties() {
         return {
+          /**
+           * The key of the icon resource to render.
+           */
           icon: {
             type: String,
             value: 'nebula-switch:circle'

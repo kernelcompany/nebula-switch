@@ -25,21 +25,18 @@
     "switch"
   ],
   "main": "nebula-switch.html",
-  "pages": {
-    "<nebula-button>": "docs/nebula-switch.md"
-  },
   "demos": {
     "Demo": "demo/index.html"
   },
   "dependencies": {
-    "polymer": "Polymer/polymer#>=2.0.0-rc.1 <3.0",
+    "polymer": "Polymer/polymer#^2.0.0",
     "nebula-focus-behavior": "arsnebula/nebula-focus-behavior#^2.0.0",
     "nebula-checked-behavior": "arsnebula/nebula-checked-behavior#^2.0.0",
     "nebula-icons": "arsnebula/nebula-icons#^2.0.0",
     "nebula-element-mixin": "arsnebula/nebula-element-mixin#^2.0.0"
   },
   "devDependencies": {
-    "web-component-tester": "polymer/web-component-tester#>=6.0.0 || 6.0.0-prerelease.5",
+    "web-component-tester": "polymer/web-component-tester#^6.0.0",
     "nebula-test": "arsnebula/nebula-test#^2.0.0",
     "nebula-label": "arsnebula/nebula-label#^2.0.0"
   }
